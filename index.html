@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teacher Key - Case #10 The Thawed Shipment</title>
+<style>
+:root{--ink:#0d1117;--ink2:#131a24;--ink3:#1a2430;--amb:#e8a33d;--chalk:#e9e7e2;
+      --chalk-dim:#9aa3ad;--ok:#5fb87a;--no:#d1604f;--rule:#26313d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--chalk);
+  font:15px/1.6 "Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 22px 90px}
+h1{font-size:24px;margin:0}
+.caseno{font:600 12px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:.22em;color:#a8762c;margin-bottom:8px}
+.lede{color:var(--chalk-dim);max-width:70ch;margin:14px 0 26px}
+textarea{width:100%;min-height:130px;background:var(--ink2);border:1px solid var(--rule);
+  color:var(--chalk);border-radius:2px;padding:13px;font:15px/1.7 inherit;resize:vertical}
+textarea:focus{border-color:var(--amb);outline:none}
+.btn{background:var(--amb);color:#17120a;border:0;border-radius:2px;padding:12px 24px;
+  font-size:15px;font-weight:700;cursor:pointer;margin-top:12px}
+.btn.ghost{background:transparent;color:var(--chalk-dim);border:1px solid var(--rule)}
+.warn{border-left:3px solid var(--amb);background:rgba(232,163,61,.07);padding:11px 14px;
+  margin:18px 0;color:var(--chalk-dim);font-size:13.5px}
+.team{background:var(--ink2);border:1px solid var(--rule);border-radius:3px;margin:20px 0;
+  overflow:hidden;break-inside:avoid;page-break-inside:avoid}
+.thead{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:14px 18px;border-bottom:1px solid var(--rule);background:var(--ink3)}
+.tname{font-weight:700;font-size:17px;letter-spacing:.06em}
+.verdict{font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:5px 12px;border-radius:2px}
+.verdict.out{background:rgba(209,96,79,.16);color:var(--no);border:1px solid rgba(209,96,79,.4)}
+.verdict.ok{background:rgba(95,184,122,.16);color:var(--ok);border:1px solid rgba(95,184,122,.4)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0}
+.col{padding:16px 18px;border-right:1px solid var(--rule)}
+.col:last-child{border-right:0}
+h4{margin:0 0 10px;font-size:11.5px;letter-spacing:.14em;color:var(--amb);font-weight:700}
+.row{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px dotted #202b36}
+.row:last-child{border-bottom:0}
+.row span:first-child{color:var(--chalk-dim)}
+.row span:last-child{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.note{padding:12px 18px;border-top:1px solid var(--rule);color:var(--chalk-dim);font-size:13.5px;line-height:1.6}
+.err{color:var(--no)}
+@media print{
+  body{background:#fff;color:#000}.noprint{display:none}
+  .team,.col,.thead{background:#fff;border-color:#bbb}
+  h4{color:#7a5410}.row span:first-child{color:#555}
+  .verdict.out{color:#a32b18;border-color:#a32b18;background:#fff}
+  .verdict.ok{color:#1d6b36;border-color:#1d6b36;background:#fff}
+  .note,.warn{color:#444;background:#fff}
+}
+</style></head><body><div class="wrap">
+  <div class="caseno">EVIDENCE &amp; EQUATIONS &nbsp;&#183;&nbsp; CASE #10</div>
+  <h1>The Thawed Shipment &#8212; Teacher Answer Key</h1>
+  <p class="lede">Paste your team names, one per line, exactly as students typed them. Spacing, case and
+  punctuation are ignored. The verdict turns on the energy the documented dock exposure could deliver
+  against the energy the contents actually absorbed &#8212; and the melting is the larger part of that
+  budget in every case.</p>
+  <div class="noprint">
+    <textarea id="names" placeholder="KESTREL&#10;BRAMBLE&#10;TALLOW&#10;QUARRY"></textarea>
+    <div class="warn"><strong>Case 10 has a single paper.</strong> There is no SL/HL split here &#8212;
+    every team on this case works the same seven stages. Case file references all begin CC-.</div>
+    <div><button class="btn" id="go">Generate key</button>
+    <button class="btn ghost" id="pr">Print / save as PDF</button></div>
+  </div>
+  <div id="out"></div>
+</div>
+
+<script>
+/* CASE10-CORE-BEGIN */
+/* Evidence & Equations — Case 10: "The Thawed Shipment"
+ * Reference physics core. Shared verbatim by the investigation app, the teacher
+ * answer-key generator and the verifier. Do not fork this file.
+ *
+ * Model
+ * -----
+ *   Energy the contents absorbed, from their state on arrival:
+ *     Q1 = m_p c_p (T_pf - T_pi)          warming the product
+ *     Q2 = m_k c_ice (0 - T_ki)           bringing the water-ice packs up to 0 C
+ *     Q3 = m_melt L_f                     melting the meltwater measured on arrival
+ *     Q_req = Q1 + Q2 + Q3
+ *   Energy the documented exposure could deliver, with the interior held near
+ *   0 C while ice remains, so the driving difference is the bay temperature:
+ *     q   = U * T_bay                     wall heat flux, W/m^2
+ *     P   = q * A
+ *     Q_in = P * t
+ *   Verdict: ratio = 100 * Q_in / Q_req.
+ *
+ * Why the scenario is a dock exposure and not an open door
+ * -------------------------------------------------------
+ *   Melting 0.2 kg of ice costs 67 kJ. Through an insulated shipper at a few
+ *   tens of watts that is tens of minutes to a couple of hours. A door open for
+ *   three minutes cannot do it, so the disputed exposure is the time the
+ *   consignment stood on the receiving dock before anyone moved it to the
+ *   chiller.
+ *
+ * Leakage discipline
+ * ------------------
+ *   The verdict is a ratio, so it is a function of the published evidence by
+ *   construction -- that is the point of the case. What must not happen is any
+ *   SINGLE field predicting it. The four quantities that set the available
+ *   energy (U, A, T_bay, t) are therefore each scaled by the fourth root of the
+ *   correction needed to hit the target ratio, so each one carries only a
+ *   quarter of it, against its own much wider natural spread.
+ */
+(function (root, factory) {
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.EE10 = api;
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var L_F = 334000;        // latent heat of fusion of water, J/kg
+  var C_ICE = 2100;        // specific heat capacity of ice, J/(kg K)
+
+  var K = {
+    MP_MIN: 1.50, MP_MAX: 5.00,          // product mass, kg
+    CP_MIN: 3400, CP_MAX: 3900,          // documented specific heat, J/(kg K)
+    TPI_MIN: 2.0, TPI_MAX: 4.0,          // product temperature at despatch, C
+    DTP_MIN: 4.0, DTP_MAX: 9.0,          // warming observed on arrival, K
+    MK_MIN: 0.60, MK_MAX: 2.00,          // water-ice coolant pack mass, kg
+    TKI_MIN: -16.0, TKI_MAX: -5.0,       // pack temperature at despatch, C
+    MM_MIN: 0.080, MM_MAX: 0.450,        // meltwater measured on arrival, kg
+    TPF_MIN: 8.5,                        // must land above the permitted 2-8 C band,
+                                         // or the consignment was never out of range
+    MELT_FRAC_MAX: 0.55,                 // some ice always remained, which the third
+                                         // cross-examination argument depends on
+
+    U0_MIN: 0.33, U0_MAX: 3.30,          // shipper wall U value, W/(m^2 K)
+    D0_MIN: 0.230, D0_MAX: 1.000,        // external box dimensions, m
+    TB0_MIN: 14.0, TB0_MAX: 30.0,        // receiving bay temperature, C
+    T0_MIN: 1200, T0_MAX: 9600,          // dock exposure, s
+
+    U_LO: 0.24, U_HI: 4.40,              // bands after the correction is applied.
+    D_LO: 0.180, D_HI: 1.350,            // Generous: every rejection here truncates a
+    TB_LO: 10.0, TB_HI: 38.0,            // carrier's spread, and the spread is exactly
+    T_LO: 300, T_HI: 21600,              // what stops it tracking the verdict.
+    A_LO: 0.35, A_HI: 6.50,
+    A_UNIT_LO: 0.90, A_UNIT_HI: 1.12,    // a shipper of almost exactly 1 m^2 makes the
+                                         // unit errors at stages 5 and 6 invisible, so
+                                         // the case cannot teach them -- exclude it
+
+    JITTER: 0.60,                        // spread of the exposure about the value that
+                                         // would make the budget balance exactly
+    /* The target is set in percentage points, not in log space. Drawing |ln r|
+       symmetrically and then rejecting on |pct - 100| is NOT the same test on
+       both sides -- ln 0.925 is 7.5 points below the line while ln 1.081 is 8.1
+       above it, so the shortfall cases were rejected more often, and that
+       lopsided rejection showed up as the exposure predicting the verdict. */
+    DELTA_MIN: 8.3, DELTA_MAX: 10.5,     // how far from the line, in points
+    MARGIN_PCT: 8,                       // ambiguous band: |ratio - 100| >= this
+    Q3_FRAC_MIN: 0.40, Q3_FRAC_MAX: 0.72,// latent share of the required energy
+    FLUX_NOISE: 0.004,                   // sealed sensor, fractional
+    FLUX_MAX_DEV: 0.012,
+
+    TOL_REL: 0.03,                       // house tolerance
+    TOL_FLUX: 0.012,
+    TOL_RATIO: 0.03
+  };
+
+  /* ---------------------------------------------------------------- RNG --- */
+  function xmur3(str) {
+    var h = 1779033703 ^ str.length;
+    for (var i = 0; i < str.length; i++) {
+      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return function () {
+      h = Math.imul(h ^ (h >>> 16), 2246822507);
+      h = Math.imul(h ^ (h >>> 13), 3266489909);
+      h ^= h >>> 16;
+      return h >>> 0;
+    };
+  }
+  function sfc32(a, b, c, d) {
+    return function () {
+      a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0;
+      var t = (a + b) | 0;
+      a = b ^ (b >>> 9); b = (c + (c << 3)) | 0;
+      c = (c << 21) | (c >>> 11); d = (d + 1) | 0;
+      t = (t + d) | 0; c = (c + t) | 0;
+      return (t >>> 0) / 4294967296;
+    };
+  }
+  var SEED_NS = 'E&E::CASE10::THAWEDSHIPMENT::';
+  function rng(label) { var h = xmur3(SEED_NS + label); return sfc32(h(), h(), h(), h()); }
+  function normalizeTeam(n) {
+    return String(n == null ? '' : n).toUpperCase().replace(/[^A-Z0-9]/g, '');
+  }
+  function uni(r, lo, hi) { return lo + r() * (hi - lo); }
+  /* log-uniform: a wider spread in log space for the same physical range, which
+     is what the carriers need if they are not to track the verdict */
+  function logUni(r, lo, hi) { return Math.exp(Math.log(lo) + r() * Math.log(hi / lo)); }
+  function rnd(x, dp) { var f = Math.pow(10, dp); return Math.round(x * f) / f; }
+
+  function fmtMin(s) {
+    s = Math.round(s);
+    var h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60);
+    if (m === 60) { h += 1; m = 0; }
+    return (h ? h + ' h ' : '') + m + ' min';
+  }
+  function kJ(j) { return (j / 1000); }
+
+  /* ------------------------------------------------------- candidate ----- */
+  function buildCandidate(r, verdictSufficient) {
+    /* --- the consignment, drawn independently of the verdict -------------- */
+    var m_p  = rnd(uni(r, K.MP_MIN, K.MP_MAX), 2);
+    var c_p  = Math.round(uni(r, K.CP_MIN, K.CP_MAX) / 10) * 10;
+    var T_pi = rnd(uni(r, K.TPI_MIN, K.TPI_MAX), 1);
+    var T_pf = rnd(T_pi + uni(r, K.DTP_MIN, K.DTP_MAX), 1);
+    var m_k  = rnd(uni(r, K.MK_MIN, K.MK_MAX), 2);
+    var T_ki = rnd(uni(r, K.TKI_MIN, K.TKI_MAX), 1);
+    var m_m  = rnd(uni(r, K.MM_MIN, K.MM_MAX), 3);
+
+    if (T_pf < K.TPF_MIN) return null;
+    /* If the packs weigh about what the product weighs, swapping the two masses
+       at stage 1 lands inside tolerance and the error becomes unteachable. */
+    if (Math.abs(m_k - m_p) / m_p < 0.10) return null;
+    if (m_m > K.MELT_FRAC_MAX * m_k) return null;
+
+    var Q1 = m_p * c_p * (T_pf - T_pi);
+    var Q2 = m_k * C_ICE * (0 - T_ki);
+    var Q3 = m_m * L_F;
+    var Q_req = Q1 + Q2 + Q3;
+
+    var q3f = Q3 / Q_req;
+    if (q3f < K.Q3_FRAC_MIN || q3f > K.Q3_FRAC_MAX) return null;
+
+    /* --- the exposure, placed to realise the verdict -------------------- */
+    /* The correction needed to hit the target ratio is split across six
+       published quantities, each taking a share proportional to its own log
+       spread. That is the allocation that minimises the largest single-field
+       correlation: the worst r works out as mean|ln ratio| / (sum of spreads).
+       The three box dimensions are worth double, because the area goes as the
+       square of a uniform rescaling while each dimension moves only once. */
+    var delta = uni(r, K.DELTA_MIN, K.DELTA_MAX);
+    var ratio = (100 + (verdictSufficient ? delta : -delta)) / 100;
+    var U0 = logUni(r, K.U0_MIN, K.U0_MAX);
+    var L0 = logUni(r, K.D0_MIN, K.D0_MAX);
+    var W0 = logUni(r, K.D0_MIN, K.D0_MAX);
+    var H0 = logUni(r, K.D0_MIN, K.D0_MAX);
+    var B0 = logUni(r, K.TB0_MIN, K.TB0_MAX);
+    var A0 = 2 * (L0 * W0 + L0 * H0 + W0 * H0);
+    var P0 = U0 * A0 * B0;
+
+    /* Draw the exposure already close to what the target ratio needs, rather
+       than drawing it blind and then correcting hard. Scaling everything by a
+       large correction made the carriers hit their bounds far more often on the
+       "sufficient" side, and that lopsided rejection -- not the correction
+       itself -- was what let the exposure predict the verdict. The leftover
+       correction below is now a few per cent, and what rejection remains
+       depends on Q_req/P0 and the jitter, neither of which knows the verdict. */
+    var jitter = uni(r, -K.JITTER, K.JITTER);
+    var t0 = (Q_req / P0) * Math.exp(jitter);
+    if (t0 < K.T_LO || t0 > K.T_HI) return null;
+
+    var X = Math.log(ratio) - jitter;
+    /* Measured log spreads of the accepted population, not the spreads of the
+       bands they were drawn from -- rejection narrows them, and weighting by the
+       wrong figure hands one carrier more of the correction than it can hide. */
+    var SD_F = 0.678;   /* spread of the published WALL FLUX. Once U and the bay
+                           temperature both carry part of the correction they are
+                           no longer independent, so their product's spread must
+                           be measured rather than combined from theirs. */
+    var SD_A = 0.470;   /* spread of the SURFACE AREA, which is what the three
+                           dimensions combine into and what the student actually
+                           uses -- weighting by one side's spread gave the area
+                           twice the share it could hide. Measured, like the rest. */
+    var SD_D = 0.423, SD_U = 0.648, SD_B = 0.221, SD_T = 0.753;
+    var S = SD_A + SD_F + SD_T;
+    /* U and the bay temperature cannot be weighted independently: the sealed
+       exhibit publishes their product as the wall flux, so that product absorbs
+       both their shares at once. Treat them as one carrier of combined spread,
+       then split its share between them in proportion to their own spreads. */
+    var SD_UB = SD_F;
+    var wUB = SD_UB / S, wD = (SD_A / S) / 2, wT = SD_T / S;
+    var fD = Math.exp(wD * X);
+    var U = rnd(U0 * Math.exp(wUB * (SD_U / (SD_U + SD_B)) * X), 3);
+    var L = rnd(L0 * fD, 3), Wd = rnd(W0 * fD, 3), Hd = rnd(H0 * fD, 3);
+    var T_bay = rnd(B0 * Math.exp(wUB * (SD_B / (SD_U + SD_B)) * X), 1);
+    var t = Math.round(t0 * Math.exp(wT * X) / 60) * 60;
+
+    if (U < K.U_LO || U > K.U_HI) return null;
+    if (L < K.D_LO || L > K.D_HI || Wd < K.D_LO || Wd > K.D_HI
+        || Hd < K.D_LO || Hd > K.D_HI) return null;
+    if (T_bay < K.TB_LO || T_bay > K.TB_HI) return null;
+    if (t < K.T_LO || t > K.T_HI) return null;
+    var A = 2 * (L * Wd + L * Hd + Wd * Hd);
+    if (A < K.A_LO || A > K.A_HI) return null;
+    if (A > K.A_UNIT_LO && A < K.A_UNIT_HI) return null;
+
+    /* Everything downstream is recomputed from the published, rounded values,
+       so the student's arithmetic and the key's agree exactly. */
+    var flux = U * T_bay;
+    var P = flux * A;
+    var Q_in = P * t;
+    var pct = 100 * Q_in / Q_req;
+    if (Math.abs(pct - 100) < K.MARGIN_PCT) return null;
+    if ((pct >= 100) !== verdictSufficient) return null;
+
+    /* Sealed exhibit: a heat-flux sensor taped to the shipper wall. It measures
+       the ingress model's own prediction independently, and says nothing about
+       whether that ingress was enough. */
+    var flux_logged = rnd(flux * (1 + uni(r, -K.FLUX_NOISE, K.FLUX_NOISE)), 2);
+    if (Math.abs(flux_logged - flux) / flux > K.FLUX_MAX_DEV) return null;
+
+    /* The shortcut this case exists to catch: dropping the latent term. */
+    var Q_req_noLatent = Q1 + Q2;
+    var pct_noLatent = 100 * Q_in / Q_req_noLatent;
+
+    return {
+      m_p: m_p, c_p: c_p, T_pi: T_pi, T_pf: T_pf, dT_p: rnd(T_pf - T_pi, 1),
+      m_k: m_k, T_ki: T_ki, m_m: m_m,
+      U: U, L: L, W: Wd, H: Hd, A: A, T_bay: T_bay, t: t,
+      flux: flux, flux_logged: flux_logged, P: P,
+      Q1: Q1, Q2: Q2, Q3: Q3, Q_req: Q_req, Q_in: Q_in, pct: pct,
+      q3frac: q3f, Q_req_noLatent: Q_req_noLatent, pct_noLatent: pct_noLatent
+    };
+  }
+
+  /* ------------------------------------------------------- assembly ----- */
+  function assemble(team, display, c, verdictSufficient, attempts) {
+    var given = {
+      team: team, teamDisplay: display,
+      caseFile: 'CC-' + (1000 + (xmur3(team + '#file')() % 9000)),
+      m_p: c.m_p, c_p: c.c_p, T_pi: c.T_pi, T_pf: c.T_pf,
+      m_k: c.m_k, T_ki: c.T_ki, c_ice: C_ICE,
+      m_melt: c.m_m, L_f: L_F,
+      permittedLo: 2.0, permittedHi: 8.0,
+      meltFrac: c.m_m / c.m_k,
+      U: c.U, L: c.L, W: c.W, H: c.H, T_bay: c.T_bay,
+      t_dock: c.t, t_dockText: fmtMin(c.t)
+    };
+    var sealed = { flux_logged: c.flux_logged };
+
+    var answers = {
+      s1_Q1: c.Q1, s2_Q2: c.Q2, s3_Q3: c.Q3, s4_Qreq: c.Q_req,
+      s5_A: c.A, s5_flux: c.flux, s5_P: c.P, s6_Qin: c.Q_in, s7_pct: c.pct,
+      s1_Q1_kJ: kJ(c.Q1), s2_Q2_kJ: kJ(c.Q2), s3_Q3_kJ: kJ(c.Q3),
+      s4_Qreq_kJ: kJ(c.Q_req), s6_Qin_kJ: kJ(c.Q_in),
+      flux_pctDiff: 100 * (c.flux_logged - c.flux) / c.flux
+    };
+
+    var truth = {
+      sufficient: verdictSufficient,
+      latentShare: 100 * c.q3frac,
+      shortfall: c.Q_req - c.Q_in,
+      wrong: {
+        noLatent_Qreq: c.Q_req_noLatent,       // the core misconception
+        noLatent_pct: c.pct_noLatent,
+        packsWithWaterC: c.m_k * 4186 * (0 - c.T_ki),
+        meltAllPacks: c.m_k * L_F,
+        vaporisation: c.m_m * 2260000,
+        forgotArea: c.flux * c.t,              // left A out of the power
+        areaAsVolume: c.L * c.W * c.H,
+        areaOneFace: c.L * c.W,
+        areaNoFactorTwo: (c.L * c.W + c.L * c.H + c.W * c.H),
+        ratioInverted: 100 * c.Q_req / c.Q_in
+      }
+    };
+
+    return {
+      team: team, teamDisplay: display, attempts: attempts,
+      given: given, sealed: sealed, answers: answers, truth: truth, internals: c,
+      verdict: verdictSufficient ? 'DOCUMENTED EXPOSURE IS SUFFICIENT'
+                                 : 'ADDITIONAL HEAT INPUT REQUIRED',
+      verdictLabel: verdictSufficient ? 'DOCUMENTED EXPOSURE IS SUFFICIENT'
+                                      : 'ADDITIONAL HEAT INPUT REQUIRED',
+      verdictText: verdictSufficient
+        ? 'The documented dock exposure of ' + fmtMin(c.t) + ' could deliver '
+          + kJ(c.Q_in).toFixed(1) + ' kJ, against the ' + kJ(c.Q_req).toFixed(1)
+          + ' kJ the contents absorbed \u2014 ' + c.pct.toFixed(1) + '% of what was needed. '
+          + 'The exposure on the paperwork is enough to account for the condition of the '
+          + 'consignment. It does not establish that nothing else went wrong, only that '
+          + 'nothing else needs to have.'
+        : 'The documented dock exposure of ' + fmtMin(c.t) + ' could deliver only '
+          + kJ(c.Q_in).toFixed(1) + ' kJ, against the ' + kJ(c.Q_req).toFixed(1)
+          + ' kJ the contents absorbed \u2014 ' + c.pct.toFixed(1) + '% of what was needed. '
+          + 'At least ' + kJ(c.Q_req - c.Q_in).toFixed(1) + ' kJ came from somewhere else. '
+          + 'This does not identify the source, and it does not establish who was responsible.'
+    };
+  }
+
+  function generate(teamName, modeName) {
+    var team = normalizeTeam(teamName);
+    if (!team) throw new Error('team name required');
+    var rv = rng(team + '#verdict');
+    var sufficient = rv() < 0.5;
+    for (var a = 0; a < 900; a++) {
+      var c = buildCandidate(rng(team + '#phys#' + a), sufficient);
+      if (!c) continue;
+      return assemble(team, String(teamName || '').trim(), c, sufficient, a + 1);
+    }
+    throw new Error('generator exhausted for team "' + team + '"');
+  }
+
+  /* --------------------------------------------------- re-derivation ----- */
+  function solveFromEvidence(ev, sealed) {
+    var Q1 = ev.m_p * ev.c_p * (ev.T_pf - ev.T_pi);
+    var Q2 = ev.m_k * ev.c_ice * (0 - ev.T_ki);
+    var Q3 = ev.m_melt * ev.L_f;
+    var Q_req = Q1 + Q2 + Q3;
+    var A = 2 * (ev.L * ev.W + ev.L * ev.H + ev.W * ev.H);
+    var flux = ev.U * ev.T_bay;
+    var P = flux * A;
+    var Q_in = P * ev.t_dock;
+    var pct = 100 * Q_in / Q_req;
+    return {
+      s1_Q1: Q1, s2_Q2: Q2, s3_Q3: Q3, s4_Qreq: Q_req,
+      s5_A: A, s5_flux: flux, s5_P: P, s6_Qin: Q_in, s7_pct: pct,
+      s1_Q1_kJ: kJ(Q1), s2_Q2_kJ: kJ(Q2), s3_Q3_kJ: kJ(Q3),
+      s4_Qreq_kJ: kJ(Q_req), s6_Qin_kJ: kJ(Q_in),
+      flux_pctDiff: 100 * (sealed.flux_logged - flux) / flux,
+      sufficient: pct >= 100
+    };
+  }
+
+  /* ------------------------------------------------------------ grading -- */
+  var STAGE_TOL = {
+    s1_Q1: ['rel', K.TOL_REL], s2_Q2: ['rel', K.TOL_REL], s3_Q3: ['rel', K.TOL_REL],
+    s4_Qreq: ['rel', K.TOL_REL], s5_A: ['rel', K.TOL_REL],
+    s5_flux: ['rel', K.TOL_FLUX], s5_P: ['rel', K.TOL_REL],
+    s6_Qin: ['rel', K.TOL_REL], s7_pct: ['rel', K.TOL_RATIO]
+  };
+  var GRADED = { standard: Object.keys(STAGE_TOL) };
+
+  function accepts(field, submitted, truth) {
+    var spec = STAGE_TOL[field];
+    if (!spec) throw new Error('no tolerance for ' + field);
+    if (!isFinite(submitted)) return false;
+    if (spec[0] === 'abs') return Math.abs(submitted - truth) <= spec[1];
+    if (truth === 0) return Math.abs(submitted) <= 1e-9;
+    return Math.abs(submitted - truth) / Math.abs(truth) <= spec[1];
+  }
+
+  return {
+    K: K, L_F: L_F, C_ICE: C_ICE, SEED_NS: SEED_NS,
+    generate: generate, solveFromEvidence: solveFromEvidence,
+    normalizeTeam: normalizeTeam, accepts: accepts,
+    STAGE_TOL: STAGE_TOL, GRADED: GRADED, fmtMin: fmtMin, kJ: kJ
+  };
+});
+/* CASE10-CORE-END */
+</script>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s);};
+var C=window.EE10;
+function f(v,d){return Number(v).toFixed(d);}
+function kJ(v,d){return Number(v/1000).toFixed(d==null?1:d);}
+function row(k,v){return '<div class="row"><span>'+k+'</span><span>'+v+'</span></div>';}
+
+function card(R){
+  var g=R.given, s=R.sealed, a=R.answers, t=R.truth;
+  var ok = R.verdict==='DOCUMENTED EXPOSURE IS SUFFICIENT';
+
+  var ev = row('Product',f(g.m_p,2)+' kg')
+    + row('Specific heat',g.c_p+' J/kg\u00b7K')
+    + row('Temperature',f(g.T_pi,1)+' \u2192 '+f(g.T_pf,1)+' \u00b0C')
+    + row('Water-ice packs',f(g.m_k,2)+' kg at '+f(g.T_ki,1)+' \u00b0C')
+    + row('Meltwater',f(g.m_melt,3)+' kg  ('+f(100*g.meltFrac,0)+'%)')
+    + row('Shipper',f(g.L,3)+' \u00d7 '+f(g.W,3)+' \u00d7 '+f(g.H,3)+' m')
+    + row('U value',f(g.U,3)+' W/m\u00b2\u00b7K')
+    + row('Bay temperature',f(g.T_bay,1)+' \u00b0C')
+    + row('Dock exposure',g.t_dockText)
+    + row('Sealed flux',f(s.flux_logged,2)+' W/m\u00b2');
+
+  var st = row('1 &#183; product',kJ(a.s1_Q1)+' kJ')
+    + row('2 &#183; packs to 0 \u00b0C',kJ(a.s2_Q2)+' kJ')
+    + row('3 &#183; melting',kJ(a.s3_Q3)+' kJ')
+    + row('4 &#183; total absorbed',kJ(a.s4_Qreq)+' kJ')
+    + row('5 &#183; surface area',f(a.s5_A,3)+' m\u00b2')
+    + row('5 &#183; wall flux',f(a.s5_flux,2)+' W/m\u00b2')
+    + row('5 &#183; rate of entry',f(a.s5_P,1)+' W')
+    + row('6 &#183; energy admitted',kJ(a.s6_Qin)+' kJ')
+    + row('7 &#183; available / required',f(a.s7_pct,1)+' %');
+
+  var tr = row('Latent share of budget',f(t.latentShare,0)+' %')
+    + row('Margin from the line',f(Math.abs(a.s7_pct-100),1)+' points')
+    + row(ok?'Surplus':'Shortfall',kJ(Math.abs(t.shortfall))+' kJ')
+    + row('Flux sensor vs model',f(a.flux_pctDiff,2)+' %')
+    + row('Ice remaining',f(100*(1-g.meltFrac),0)+' % of the packs');
+
+  var W=t.wrong;
+  var wrongList = row('Latent term dropped',kJ(W.noLatent_Qreq)+' kJ \u2192 '+f(W.noLatent_pct,0)+' %')
+    + row('Water\u2019s c for the packs',kJ(W.packsWithWaterC)+' kJ')
+    + row('Whole pack mass melted',kJ(W.meltAllPacks)+' kJ')
+    + row('Latent heat of vaporisation',kJ(W.vaporisation)+' kJ')
+    + row('Area as volume',f(W.areaAsVolume,3))
+    + row('Area, one face',f(W.areaOneFace,3))
+    + row('Area, factor of 2 dropped',f(W.areaNoFactorTwo,3))
+    + row('Area left out of the power',kJ(W.forgotArea)+' kJ')
+    + row('Ratio inverted',f(W.ratioInverted,0)+' %');
+
+  return '<div class="team">'
+    +'<div class="thead"><div class="tname">'+g.team
+    +' <span style="font-weight:400;font-size:12.5px;color:var(--chalk-dim)">'+g.caseFile+'</span></div>'
+    +'<div class="verdict '+(ok?'ok':'out')+'">'+R.verdictLabel+'</div></div>'
+    +'<div class="cols">'
+    +'<div class="col"><h4>EVIDENCE ISSUED</h4>'+ev+'</div>'
+    +'<div class="col"><h4>STAGE ANSWERS</h4>'+st+'</div>'
+    +'<div class="col"><h4>WHAT ACTUALLY HAPPENED</h4>'+tr+'</div>'
+    +'<div class="col"><h4>WRONG ANSWERS THE APP NAMES</h4>'+wrongList+'</div>'
+    +'</div>'
+    +'<div class="note">'
+    + 'Melting accounts for <strong>'+f(t.latentShare,0)+'%</strong> of the '+kJ(a.s4_Qreq)
+    + ' kJ absorbed, at no change of temperature. A student who leaves it out gets '
+    + kJ(W.noLatent_Qreq)+' kJ, which makes the dock look like <strong>'+f(W.noLatent_pct,0)
+    + '%</strong> of what was needed \u2014 comfortably sufficient, and wrong. '
+    + (ok
+       ? 'Here the exposure really is enough. Watch for students reading that as proof the courier did '
+        +'nothing wrong: it shows only that nothing else needs to have happened.'
+       : 'Here the exposure falls '+kJ(Math.abs(t.shortfall))+' kJ short. Watch for students naming a '
+        +'cause \u2014 the budget shows heat came from somewhere else, not where.')
+    + ' Gate answers: melting absorbs energy at constant temperature; a small \u0394T across a large mass '
+    + 'is still large energy; the flux sensor validates the <strong>model</strong>, not the verdict; '
+    + 'ice remaining does <strong>not</strong> mean the product stayed in range.'
+    +'</div></div>';
+}
+
+$('#go').addEventListener('click',function(){
+  var names=$('#names').value.split(/\n/).map(function(s){return s.trim();})
+    .filter(function(s){return C.normalizeTeam(s).length>=3;});
+  if(!names.length){ $('#out').innerHTML='<p class="err">Enter at least one team name of three or more '
+    +'letters or digits.</p>'; return; }
+  var seen={},uniq=[];
+  names.forEach(function(x){var k=C.normalizeTeam(x); if(!seen[k]){seen[k]=1;uniq.push(x);}});
+  var out='', nOk=0;
+  uniq.forEach(function(x){
+    try{ var R=C.generate(x);
+      if(R.verdict==='DOCUMENTED EXPOSURE IS SUFFICIENT') nOk++;
+      out+=card(R);
+    }catch(e){ out+='<div class="team"><div class="thead"><div class="tname">'+x
+      +'</div></div><div class="note err">Could not generate: '+e.message+'</div></div>'; }
+  });
+  $('#out').innerHTML='<p class="lede" style="margin-top:26px">'+uniq.length+' teams &#183; '+nOk
+    +' exposure sufficient &#183; '+(uniq.length-nOk)+' additional heat required</p>'+out;
+});
+$('#pr').addEventListener('click',function(){window.print();});
+})();
+</script></body></html>
